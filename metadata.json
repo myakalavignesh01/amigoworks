@@ -1,0 +1,6 @@
+{
+  "name": "AMIGOWORKS",
+  "description": "AMIGOWORKS builds AI products, web experiences, automation systems and digital solutions. Three minds. One build.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

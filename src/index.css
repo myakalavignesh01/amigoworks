@@ -1,0 +1,166 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-display: 'Syne', 'Plus Jakarta Sans', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: #0A0A0A;
+    color: #F5F5F4;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .font-display {
+    font-family: var(--font-display);
+    letter-spacing: -0.03em;
+  }
+
+  .font-mono-code {
+    font-family: var(--font-mono);
+  }
+}
+
+/* Subtle Technical Grid Background */
+.bg-grid-pattern {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+}
+
+.bg-radial-gradient {
+  background: radial-gradient(circle at 50% 30%, rgba(139, 92, 246, 0.08) 0%, rgba(10, 10, 10, 0) 70%);
+}
+
+/* Custom subtle scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0A0A0A;
+}
+::-webkit-scrollbar-thumb {
+  background: #1A1A1A;
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #8B5CF6;
+}
+
+/* Skeleton Loading Shimmer Effect */
+@keyframes shimmerSweep {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.animate-shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-100%);
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0,
+    rgba(255, 255, 255, 0.05) 25%,
+    rgba(139, 92, 246, 0.12) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: shimmerSweep 2.2s infinite ease-in-out;
+}
+
+/* High-Contrast Minimal Light Theme */
+.theme-light {
+  background-color: #FAFAFA !important;
+  color: #09090B !important;
+}
+
+.theme-light ::-webkit-scrollbar-track {
+  background: #FAFAFA;
+}
+.theme-light ::-webkit-scrollbar-thumb {
+  background: #E4E4E7;
+}
+.theme-light ::-webkit-scrollbar-thumb:hover {
+  background: #8B5CF6;
+}
+
+.theme-light .bg-\[\#0A0A0A\],
+.theme-light .bg-\[\#0E0E0E\],
+.theme-light .bg-\[\#111111\],
+.theme-light .bg-\[\#141414\],
+.theme-light .bg-black {
+  background-color: #FFFFFF !important;
+}
+
+.theme-light .bg-\[\#141414\]\/40,
+.theme-light .bg-\[\#111111\]\/40,
+.theme-light .bg-\[\#111111\]\/60,
+.theme-light .bg-\[\#0E0E0E\]\/95,
+.theme-light .bg-\[\#0A0A0A\]\/85,
+.theme-light .bg-\[\#0A0A0A\]\/90,
+.theme-light .bg-\[\#0A0A0A\]\/40 {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+}
+
+.theme-light .bg-white\/5,
+.theme-light .bg-white\/10 {
+  background-color: rgba(0, 0, 0, 0.04) !important;
+}
+
+.theme-light .text-white,
+.theme-light .text-\[\#F5F5F4\] {
+  color: #09090B !important;
+}
+
+.theme-light .text-white\/80,
+.theme-light .text-white\/70,
+.theme-light .text-white\/60 {
+  color: #52525B !important;
+}
+
+.theme-light .text-white\/50,
+.theme-light .text-white\/40,
+.theme-light .text-white\/30 {
+  color: #71717A !important;
+}
+
+.theme-light .border-white\/5,
+.theme-light .border-white\/10,
+.theme-light .border-white\/15,
+.theme-light .border-white\/20 {
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+.theme-light .bg-grid-pattern {
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px) !important;
+}
+
+.theme-light button.bg-white.text-black,
+.theme-light .bg-white.text-black {
+  background-color: #09090B !important;
+  color: #FFFFFF !important;
+}
+
+.theme-light button.bg-white.text-black:hover,
+.theme-light .bg-white.text-black:hover {
+  background-color: #27272A !important;
+}
+
