@@ -1,24 +1,57 @@
 import React, { useState, useEffect } from 'react';
+import { motion, type Variants } from 'motion/react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
+import { StudioDoorTransition } from './components/StudioDoorTransition';
+import { DigitalStudio } from './components/DigitalStudio';
 import { ThreeToOne } from './components/ThreeToOne';
 import { Services } from './components/Services';
 import { Work } from './components/Work';
 import { ArchitectureDeconstructor } from './components/ArchitectureDeconstructor';
-import { InteractivePlayground } from './components/InteractivePlayground';
 import { Philosophy } from './components/Philosophy';
 import { Process } from './components/Process';
 import { Team } from './components/Team';
 import { WhyUs } from './components/WhyUs';
-import { FAQ } from './components/FAQ';
 import { ProjectInquiry } from './components/ProjectInquiry';
 import { FinalCTA } from './components/FinalCTA';
 import { Footer } from './components/Footer';
 import { CaseStudyModal } from './components/CaseStudyModal';
 import { Project } from './types';
-import { CursorTrail } from './components/CursorTrail';
-import { ClientAuditEngine } from './components/ClientAuditEngine';
+import { CustomCursor } from './components/CustomCursor';
 import { ClientGuarantees } from './components/ClientGuarantees';
+
+// Reusable scroll-triggered fade-in animation container
+const sectionFadeInVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 36,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.7,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+};
+
+const SectionFadeIn: React.FC<{ children: React.ReactNode; className?: string }> = ({
+  children,
+  className = '',
+}) => {
+  return (
+    <motion.div
+      variants={sectionFadeInVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.08, margin: '0px 0px -50px 0px' }}
+      className={`w-full ${className}`}
+    >
+      {children}
+    </motion.div>
+  );
+};
 
 export default function App() {
   const [selectedCaseStudy, setSelectedCaseStudy] = useState<Project | null>(null);
@@ -80,78 +113,101 @@ export default function App() {
         theme === 'light' ? 'theme-light' : ''
       }`}
     >
-      {/* Refined Low-Opacity Custom Tech Cursor Trail */}
-      <CursorTrail />
+      {/* Precision Context-Aware Custom Cursor */}
+      <CustomCursor />
 
       {/* Sticky Navigation */}
       <Navbar onOpenContact={() => handleStartProject()} />
 
-      {/* Hero Section */}
+      {/* Hero Section with 3D WebGL Three-to-One Interactive Symbol */}
       <Hero
         onStartProject={() => handleStartProject()}
         onExploreWork={handleExploreWork}
       />
 
-      {/* Signature Section: THREE -> ONE */}
-      <ThreeToOne />
+      {/* Interactive Mechanical Studio Portal Transition */}
+      <SectionFadeIn>
+        <StudioDoorTransition
+          onEnterStudio={() => {
+            scrollToSection('#digital-studio');
+          }}
+        />
+      </SectionFadeIn>
 
-      {/* Selected Work Showcase */}
-      <Work onSelectProject={(project) => setSelectedCaseStudy(project)} />
+      {/* Digital Studio Workspace: 3 Zones with Interactive Spotlights & Core Convergence */}
+      <SectionFadeIn>
+        <DigitalStudio onStartProject={() => handleStartProject()} />
+      </SectionFadeIn>
 
-      {/* VIRAL FEATURE: 3-Minds AI Architecture Deconstructor & Blueprint Generator */}
-      <ArchitectureDeconstructor
-        onBuildWithUs={(projectType, briefText, budget) => {
-          handleStartProject(projectType, briefText, budget);
-        }}
-      />
+      {/* Signature Section: THREE -> ONE Convergence */}
+      <SectionFadeIn>
+        <ThreeToOne />
+      </SectionFadeIn>
 
-      {/* Services Section: WHAT WE BUILD */}
-      <Services onSelectService={(service) => handleStartProject(service)} />
+      {/* Selected Work Showcase with Interactive Project Schematics */}
+      <SectionFadeIn>
+        <Work onSelectProject={(project) => setSelectedCaseStudy(project)} />
+      </SectionFadeIn>
 
-      {/* Interactive System Simulators / Sandbox */}
-      <InteractivePlayground />
+      {/* 3-Minds AI Architecture Deconstructor & Blueprint Generator */}
+      <SectionFadeIn>
+        <ArchitectureDeconstructor
+          onBuildWithUs={(projectType, briefText, budget) => {
+            handleStartProject(projectType, briefText, budget);
+          }}
+        />
+      </SectionFadeIn>
 
-      {/* NEW CLIENT ATTRACTION: Live Architecture & Performance Auditor Engine */}
-      <ClientAuditEngine
-        onFixWithUs={(projectType, briefText) => {
-          handleStartProject(projectType, briefText, '₹15K–₹50K');
-        }}
-      />
+      {/* Services Section: WHAT WE BUILD with Live Interactive Simulations */}
+      <SectionFadeIn>
+        <Services onSelectService={(service) => handleStartProject(service)} />
+      </SectionFadeIn>
 
       {/* Philosophy Section: WE DON'T JUST WRITE CODE */}
-      <Philosophy />
+      <SectionFadeIn>
+        <Philosophy />
+      </SectionFadeIn>
 
       {/* Process: FROM IDEA TO REALITY */}
-      <Process />
+      <SectionFadeIn>
+        <Process />
+      </SectionFadeIn>
 
       {/* Team: THREE PEOPLE. ONE STUDIO. */}
-      <Team />
+      <SectionFadeIn>
+        <Team />
+      </SectionFadeIn>
 
-      {/* NEW CLIENT ATTRACTION: Client Trust & Rapid Sprint Guarantees */}
-      <ClientGuarantees
-        onClaimGuarantee={(type, note) => {
-          handleStartProject(type, note, '₹15K–₹50K');
-        }}
-      />
+      {/* Client Trust & Rapid Sprint Guarantees */}
+      <SectionFadeIn>
+        <ClientGuarantees
+          onClaimGuarantee={(type, note) => {
+            handleStartProject(type, note, '₹15K–₹50K');
+          }}
+        />
+      </SectionFadeIn>
 
       {/* Why AMIGOWORKS: 5 Principles */}
-      <WhyUs />
+      <SectionFadeIn>
+        <WhyUs />
+      </SectionFadeIn>
 
-      {/* FAQ Accordion */}
-      <FAQ onOpenContact={() => handleStartProject()} />
-
-      {/* Project Inquiry Lead Generation */}
-      <ProjectInquiry
-        initialProjectType={inquiryProjectType}
-        initialDescription={inquiryDescription}
-        initialBudget={inquiryBudget}
-      />
+      {/* Project Inquiry Lead Generation Engine */}
+      <SectionFadeIn>
+        <ProjectInquiry
+          initialProjectType={inquiryProjectType}
+          initialDescription={inquiryDescription}
+          initialBudget={inquiryBudget}
+        />
+      </SectionFadeIn>
 
       {/* Final Dramatic CTA */}
-      <FinalCTA
-        onStartProject={() => handleStartProject()}
-        onExploreWork={handleExploreWork}
-      />
+      <SectionFadeIn>
+        <FinalCTA
+          onStartProject={() => handleStartProject()}
+          onExploreWork={handleExploreWork}
+        />
+      </SectionFadeIn>
 
       {/* Footer with Theme Toggle */}
       <Footer theme={theme} onToggleTheme={toggleTheme} />

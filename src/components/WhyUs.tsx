@@ -30,7 +30,7 @@ export const WhyUs: React.FC = () => {
             <div
               key={principle.number}
               id={`principle-card-${principle.number}`}
-              className={`p-8 rounded-2xl border border-white/10 bg-[#0E0E0E] hover:border-[#8B5CF6]/50 transition-all duration-300 flex flex-col justify-between shadow-[0_10px_30px_rgba(0,0,0,0.8)] ${
+              className={`p-8 rounded-2xl border border-white/10 bg-[#0E0E0E] hover:border-[#8B5CF6]/50 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] cursor-pointer flex flex-col justify-between shadow-[0_10px_30px_rgba(0,0,0,0.8)] ${
                 index === 4 ? 'md:col-span-2 lg:col-span-2' : ''
               }`}
             >

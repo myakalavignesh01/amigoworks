@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Logo } from './Logo';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
-import { motion, AnimatePresence, type Variants } from 'motion/react';
+import { motion, AnimatePresence, useScroll, useSpring, type Variants } from 'motion/react';
 
 interface NavbarProps {
   onOpenContact?: () => void;
@@ -10,6 +10,13 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,13 +32,12 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
   }, []);
 
   const navLinks = [
+    { name: 'STUDIO', href: '#digital-studio' },
     { name: 'WORK', href: '#work' },
     { name: 'DECONSTRUCTOR', href: '#deconstructor' },
-    { name: 'AUDITOR', href: '#audit-engine' },
-    { name: 'PLAYGROUND', href: '#playground' },
-    { name: 'GUARANTEES', href: '#guarantees' },
+    { name: 'SERVICES', href: '#services' },
+    { name: 'PROCESS', href: '#process' },
     { name: 'TEAM', href: '#about' },
-    { name: 'FAQ', href: '#faq' },
   ];
 
   const handleNavClick = (href: string) => {
@@ -124,6 +130,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
           : 'py-5 md:py-6 bg-[#0A0A0A]/40 backdrop-blur-sm border-b border-white/5'
       }`}
     >
+      {/* Dynamic Scroll Progress Bar */}
+      <motion.div
+        className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#8B5CF6] via-[#A78BFA] to-white origin-left z-50 pointer-events-none"
+        style={{ scaleX }}
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 flex items-center justify-between">
         {/* Brand Logo */}
         <a
@@ -162,7 +173,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
           <button
             id="nav-cta-btn"
             onClick={handleStartProject}
-            className="px-6 py-2.5 border border-white/20 text-[11px] font-bold tracking-widest uppercase hover:bg-white hover:text-black transition-all rounded-sm inline-flex items-center gap-1.5"
+            className="px-6 py-2.5 border border-white/20 text-[11px] font-bold tracking-widest uppercase hover:bg-white hover:text-black transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] rounded-sm inline-flex items-center gap-1.5 cursor-pointer"
           >
             <span>START A PROJECT</span>
             <span className="text-sm leading-none">↗</span>

@@ -106,7 +106,7 @@ export const ClientGuarantees: React.FC<ClientGuaranteesProps> = ({ onClaimGuara
               <div
                 key={idx}
                 onClick={() => setActiveTab(idx)}
-                className={`p-6 rounded-2xl border transition-all duration-300 cursor-pointer flex flex-col justify-between relative overflow-hidden ${
+                className={`p-6 rounded-2xl border transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] cursor-pointer flex flex-col justify-between relative overflow-hidden ${
                   isSelected
                     ? 'bg-[#151224] border-[#8B5CF6] shadow-[0_0_30px_rgba(139,92,246,0.2)]'
                     : 'bg-[#101014] border-white/10 hover:border-white/20 hover:bg-[#141418]'
@@ -177,7 +177,7 @@ export const ClientGuarantees: React.FC<ClientGuaranteesProps> = ({ onClaimGuara
                 `Inquiring under AMIGOWORKS Guarantee: "${guarantees[activeTab].title}". Please review our project idea and timeline requirements.`
               )
             }
-            className="px-6 py-4 rounded-xl bg-white hover:bg-[#E5E5E5] text-black font-mono-code font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-[0_0_25px_rgba(255,255,255,0.2)] transition-all shrink-0 cursor-pointer"
+            className="px-6 py-4 rounded-xl bg-white hover:bg-[#E5E5E5] text-black font-mono-code font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-[0_0_25px_rgba(255,255,255,0.2)] transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] shrink-0 cursor-pointer"
           >
             <Mail className="w-4 h-4 text-[#8B5CF6]" />
             <span>START YOUR SPRINT WITH THIS GUARANTEE</span>

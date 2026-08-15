@@ -1,7 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { motion, useReducedMotion, useScroll, useTransform, type Variants } from 'motion/react';
-import { LogoSymbol } from './Logo';
-import { ArrowDown } from 'lucide-react';
+import { ArrowDown, ArrowUpRight, Sparkles } from 'lucide-react';
+import { InteractiveHeroObject } from './InteractiveHeroObject';
+import { MagneticButton } from './MagneticButton';
 
 interface HeroProps {
   onStartProject: () => void;
@@ -11,97 +12,35 @@ interface HeroProps {
 export const Hero: React.FC<HeroProps> = ({ onStartProject, onExploreWork }) => {
   const prefersReducedMotion = useReducedMotion();
   const heroRef = useRef<HTMLDivElement>(null);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
-  // Parallax scroll effects via useScroll & useTransform
+  // Subtle scroll parallax for depth
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ['start start', 'end start'],
   });
 
-  // Layered parallax transformations for subtle depth separation
-  const logoParallaxY = useTransform(scrollYProgress, [0, 1], [0, prefersReducedMotion ? 0 : -50]);
-  const logoScale = useTransform(scrollYProgress, [0, 1], [1, prefersReducedMotion ? 1 : 0.88]);
-  const textParallaxY = useTransform(scrollYProgress, [0, 1], [0, prefersReducedMotion ? 0 : 35]);
-  const textOpacity = useTransform(scrollYProgress, [0, 0.75], [1, prefersReducedMotion ? 1 : 0.15]);
-  const bgGlowParallaxY = useTransform(scrollYProgress, [0, 1], [0, prefersReducedMotion ? 0 : 70]);
+  const contentParallaxY = useTransform(scrollYProgress, [0, 1], [0, prefersReducedMotion ? 0 : 40]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.75], [1, prefersReducedMotion ? 1 : 0.2]);
 
-  useEffect(() => {
-    if (prefersReducedMotion) return;
-
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!heroRef.current) return;
-      const rect = heroRef.current.getBoundingClientRect();
-      const x = (e.clientX - (rect.left + rect.width / 2)) / 25;
-      const y = (e.clientY - (rect.top + rect.height / 2)) / 25;
-      setMousePos({ x, y });
-    };
-
-    const currentHero = heroRef.current;
-    if (currentHero) {
-      window.addEventListener('mousemove', handleMouseMove);
-    }
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, [prefersReducedMotion]);
-
-  // Motion Variants with staggered orchestration
+  // Motion Variants with fast, smooth, intentional pacing
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.12,
-        delayChildren: 0.15,
+        staggerChildren: 0.08,
+        delayChildren: 0.1,
       },
     },
   };
 
   const itemFadeUp: Variants = {
-    hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 30 },
+    hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 20 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.7,
-        ease: [0.22, 1, 0.36, 1],
-      },
-    },
-  };
-
-  const logoVariants: Variants = {
-    hidden: { opacity: 0, scale: prefersReducedMotion ? 1 : 0.85, y: 20 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: [0.16, 1, 0.3, 1],
-      },
-    },
-  };
-
-  const cardsContainerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.6,
-      },
-    },
-  };
-
-  const cardItemVariant: Variants = {
-    hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 20, scale: 0.96 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        duration: 0.5,
+        duration: 0.6,
         ease: [0.22, 1, 0.36, 1],
       },
     },
@@ -111,131 +50,115 @@ export const Hero: React.FC<HeroProps> = ({ onStartProject, onExploreWork }) => 
     <section
       ref={heroRef}
       id="hero"
-      className="relative min-h-[92vh] flex flex-col justify-center items-center pt-28 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden bg-grid-pattern"
+      className="relative min-h-[90vh] flex flex-col justify-center items-center pt-24 pb-14 sm:pt-32 sm:pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden bg-[#0A0A0A] bg-grid-pattern"
     >
-      {/* Dynamic Ambient Background Elements with Scroll Parallax */}
-      <motion.div
-        style={{ y: bgGlowParallaxY }}
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1.5, ease: 'easeOut' }}
-        className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[550px] h-[550px] bg-[#8B5CF6]/5 rounded-full blur-[140px] pointer-events-none"
-      />
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.8, delay: 0.3 }}
-        className="absolute bottom-10 right-10 w-80 h-80 bg-[#8B5CF6]/5 rounded-full blur-[100px] pointer-events-none"
-      />
+      {/* Subtle, restrained ambient accent */}
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] sm:w-[600px] h-[300px] sm:h-[400px] bg-[#8B5CF6]/[0.04] rounded-full blur-[120px] pointer-events-none" />
 
-      {/* Main Container with Scroll-Aware Parallax Container */}
+      {/* Main Container */}
       <motion.div
         variants={containerVariants}
         initial="hidden"
         animate="visible"
         style={{
-          y: textParallaxY,
-          opacity: textOpacity,
+          y: contentParallaxY,
+          opacity: contentOpacity,
         }}
         className="max-w-5xl mx-auto w-full text-center relative z-10 flex flex-col items-center"
       >
-        {/* Subtle Brand Tag Badge */}
-        <motion.div variants={itemFadeUp} className="mb-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#111111] border border-white/10 shadow-[0_0_20px_rgba(139,92,246,0.15)]">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#8B5CF6] animate-pulse" />
-            <span className="text-[#8B5CF6] text-[10px] sm:text-[11px] font-bold tracking-[0.25em] uppercase font-mono-code">
-              INNOVATION STUDIO • THREE MINDS. ONE BUILD.
+        {/* 1. Brand Tag Badge */}
+        <motion.div variants={itemFadeUp} className="mb-4 sm:mb-6">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#111111] border border-white/10 shadow-sm">
+            <Sparkles className="w-3.5 h-3.5 text-[#8B5CF6]" />
+            <span className="text-[#C4B5FD] text-[10px] sm:text-[11px] font-bold tracking-[0.2em] uppercase font-mono-code">
+              AMIGOWORKS • THREE MINDS. ONE BUILD.
             </span>
           </div>
         </motion.div>
 
-        {/* Hero Interactive Symbol Anchor with 3D Tilt & Parallax Scale/Lift */}
-        <motion.div
-          variants={logoVariants}
-          style={{
-            y: logoParallaxY,
-            scale: logoScale,
-            transform: prefersReducedMotion
-              ? 'none'
-              : `translate3d(${mousePos.x * 0.75}px, ${mousePos.y * 0.75}px, 0) rotateX(${-mousePos.y * 0.5}deg) rotateY(${mousePos.x * 0.5}deg)`,
-            transition: 'transform 0.15s ease-out',
-          }}
-          className="my-6 cursor-pointer group"
-          onClick={onExploreWork}
-          title="AMIGOWORKS Symbol"
-        >
-          <div className="relative p-3 rounded-xl bg-[#111111]/80 border border-white/10 backdrop-blur-md transition-all duration-300 group-hover:border-[#8B5CF6]/60 group-hover:shadow-[0_0_30px_rgba(139,92,246,0.25)]">
-            <LogoSymbol size="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28" />
-          </div>
+        {/* 2. Hero Headline - Fluid & Controlled on Mobile (320px - 1440px+) */}
+        <motion.div variants={itemFadeUp} className="w-full max-w-4xl px-2">
+          <h1 className="font-display font-black text-[36px] xs:text-[44px] sm:text-6xl md:text-7xl lg:text-[84px] tracking-tight leading-[0.95] sm:leading-[0.92] text-white uppercase break-words">
+            <motion.span
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              className="block text-white"
+            >
+              WE BUILD
+            </motion.span>
+            <motion.span
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+              className="block text-white/30 tracking-tight"
+            >
+              WHAT'S NEXT.
+            </motion.span>
+          </h1>
         </motion.div>
 
-        {/* Hero Headline with Staggered Visual Rhythm */}
-        <motion.h1
-          variants={itemFadeUp}
-          className="font-display font-black text-6xl sm:text-7xl md:text-8xl lg:text-[88px] tracking-tighter leading-[0.88] text-white uppercase max-w-4xl"
-        >
-          <span>WE BUILD</span>
-          <br />
-          <span className="text-white/20">
-            WHAT'S NEXT.
-          </span>
-        </motion.h1>
-
-        {/* Supporting Text */}
+        {/* 3. Supporting Statement */}
         <motion.p
           variants={itemFadeUp}
-          className="mt-7 text-base sm:text-lg md:text-xl text-white/60 max-w-xl font-light leading-relaxed text-center px-4"
+          className="mt-5 sm:mt-7 text-sm sm:text-base md:text-lg text-white/65 max-w-xl font-light leading-relaxed text-center px-2"
         >
           AI products, web experiences, automation systems and digital solutions built by three ambitious creators.
         </motion.p>
 
-        {/* Call to Actions */}
+        {/* 4. Primary & Secondary Magnetic CTAs */}
         <motion.div
           variants={itemFadeUp}
-          className="mt-10 flex flex-col sm:flex-row items-center gap-5 w-full sm:w-auto"
+          className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center gap-3.5 sm:gap-4 w-full sm:w-auto px-4 sm:px-0"
         >
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+          <MagneticButton
             id="hero-primary-cta"
             onClick={onStartProject}
-            className="w-full sm:w-auto bg-white text-black px-8 py-4 text-sm font-bold tracking-wider uppercase flex items-center justify-center gap-3 rounded-sm hover:bg-[#F5F5F4] transition-all shadow-[0_0_20px_rgba(255,255,255,0.2)]"
+            variant="primary"
+            cursorLabel="START"
+            className="w-full sm:w-auto min-h-[48px] px-8 py-4 text-xs sm:text-sm shadow-[0_0_30px_rgba(255,255,255,0.2)]"
           >
             <span>Start a Project</span>
-            <span className="text-base font-bold">↗</span>
-          </motion.button>
+            <ArrowUpRight className="w-4 h-4 text-[#8B5CF6]" />
+          </MagneticButton>
 
-          <motion.button
-            whileHover={{ scale: 1.02, backgroundColor: 'rgba(255,255,255,0.06)' }}
-            whileTap={{ scale: 0.98 }}
+          <MagneticButton
             id="hero-secondary-cta"
             onClick={onExploreWork}
-            className="w-full sm:w-auto border border-white/20 hover:border-white/40 px-7 py-4 text-sm font-bold tracking-wider uppercase text-white/80 hover:text-white rounded-sm transition-all flex items-center justify-center gap-2"
+            variant="secondary"
+            cursorLabel="EXPLORE"
+            className="w-full sm:w-auto min-h-[48px] px-7 py-4 text-xs sm:text-sm"
           >
             <span>Explore Our Work</span>
-            <ArrowDown className="w-4 h-4 text-[#8B5CF6]" />
-          </motion.button>
+            <ArrowDown className="w-3.5 h-3.5 text-[#8B5CF6] animate-bounce" />
+          </MagneticButton>
         </motion.div>
 
-        {/* Micro Credential Grid with Staggered Entrance */}
+        {/* 5. Central Precision Interactive 3D Hero Object */}
         <motion.div
-          variants={cardsContainerVariants}
-          initial="hidden"
-          animate="visible"
-          className="mt-16 pt-10 border-t border-white/5 w-full max-w-3xl grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-6 text-left"
+          variants={itemFadeUp}
+          className="mt-8 sm:mt-10 w-full flex justify-center"
         >
-          <motion.div variants={cardItemVariant} className="p-4 rounded-xl bg-[#111111]/60 border border-white/5 hover:border-white/15 transition-all">
-            <div className="text-[10px] uppercase tracking-widest text-[#8B5CF6] mb-1 font-mono-code font-bold">01 — AI Systems</div>
-            <div className="text-xs sm:text-sm font-medium text-[#F5F5F4]">Intelligent Workflows & Assistants</div>
-          </motion.div>
-          <motion.div variants={cardItemVariant} className="p-4 rounded-xl bg-[#111111]/60 border border-white/5 hover:border-white/15 transition-all">
-            <div className="text-[10px] uppercase tracking-widest text-[#8B5CF6] mb-1 font-mono-code font-bold">02 — Digital Products</div>
-            <div className="text-xs sm:text-sm font-medium text-[#F5F5F4]">Full-Scale SaaS & Web Platforms</div>
-          </motion.div>
-          <motion.div variants={cardItemVariant} className="p-4 rounded-xl bg-[#111111]/60 border border-white/5 hover:border-white/15 transition-all">
-            <div className="text-[10px] uppercase tracking-widest text-[#8B5CF6] mb-1 font-mono-code font-bold">03 — Automation</div>
-            <div className="text-xs sm:text-sm font-medium text-[#F5F5F4]">Enterprise Python Workflows</div>
-          </motion.div>
+          <InteractiveHeroObject onExploreWork={onExploreWork} />
+        </motion.div>
+
+        {/* 6. Editorial Focus Trio */}
+        <motion.div
+          variants={itemFadeUp}
+          className="mt-10 sm:mt-12 pt-8 border-t border-white/5 w-full max-w-2xl grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 text-left"
+        >
+          <div className="p-3.5 rounded-xl bg-[#111114]/60 border border-white/5 hover:border-white/20 transition-all duration-200 hover:scale-[1.02] cursor-default">
+            <div className="text-[10px] uppercase tracking-widest text-[#8B5CF6] font-mono-code font-bold">01 — AI Systems</div>
+            <div className="text-xs font-medium text-white/90 mt-0.5">Intelligent Workflows & Logic</div>
+          </div>
+          <div className="p-3.5 rounded-xl bg-[#111114]/60 border border-white/5 hover:border-white/20 transition-all duration-200 hover:scale-[1.02] cursor-default">
+            <div className="text-[10px] uppercase tracking-widest text-[#8B5CF6] font-mono-code font-bold">02 — Digital Products</div>
+            <div className="text-xs font-medium text-white/90 mt-0.5">Modern Web Applications</div>
+          </div>
+          <div className="p-3.5 rounded-xl bg-[#111114]/60 border border-white/5 hover:border-white/20 transition-all duration-200 hover:scale-[1.02] cursor-default">
+            <div className="text-[10px] uppercase tracking-widest text-[#8B5CF6] font-mono-code font-bold">03 — Engineering</div>
+            <div className="text-xs font-medium text-white/90 mt-0.5">Python & Backend Systems</div>
+          </div>
         </motion.div>
       </motion.div>
     </section>

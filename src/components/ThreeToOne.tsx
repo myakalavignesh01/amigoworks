@@ -1,77 +1,67 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { LogoSymbol } from './Logo';
-import { Sparkles, Cpu, Terminal, Palette, ArrowRight } from 'lucide-react';
+import { Cpu, Terminal, Palette, Sparkles } from 'lucide-react';
 
 export const ThreeToOne: React.FC = () => {
-  // State for interactive slider convergence (0 = fully separate 3 minds, 100 = unified ONE BUILD)
-  const [convergenceRatio, setConvergenceRatio] = useState<number>(75);
-  const [activeMind, setActiveMind] = useState<number | null>(null);
+  const [convergenceState, setConvergenceState] = useState<'three' | 'converging' | 'one'>('converging');
+  const [activeNode, setActiveNode] = useState<number | null>(null);
 
-  // Normalizing 0 to 1
-  const t = convergenceRatio / 100;
-  const isUnified = t > 0.85;
+  // Convergence factor: 0 = separated nodes, 0.5 = converging vectors, 1 = unified ONE BUILD
+  const t = convergenceState === 'three' ? 0 : convergenceState === 'converging' ? 0.6 : 1;
+  const isOne = convergenceState === 'one';
 
-  const minds = [
+  const founders = [
     {
       id: 0,
       name: 'VIGNESH',
-      role: 'AI • Product • Strategy',
-      badge: 'THE PRODUCT INTELLECT',
+      code: 'V-01',
+      title: 'AI • Product Strategy',
+      subtitle: 'The Product Intellect',
       icon: Cpu,
       color: '#A78BFA',
-      glow: 'rgba(167, 139, 250, 0.4)',
-      focus: 'Architecting intelligent AI workflows, strategic product roadmaps, and business leverage.',
-      vectorPos: {
-        x: (1 - t) * -160,
-        y: (1 - t) * -90,
-        rotate: (1 - t) * -20,
-      },
+      desktopAngle: -140, // Top-left
+      description: 'Translates complex client visions into high-leverage AI workflows, system logic, and clear product direction.',
+      deliverables: ['Intelligent Agents & LLM RAG', 'System Roadmaps', 'Product Architecture'],
     },
     {
       id: 1,
       name: 'SAI KIRAN',
-      role: 'Engineering • Backend • Systems',
-      badge: 'THE SYSTEMS ENGINE',
+      code: 'S-02',
+      title: 'Backend • Systems Engineering',
+      subtitle: 'The Systems Engine',
       icon: Terminal,
       color: '#8B5CF6',
-      glow: 'rgba(139, 92, 246, 0.4)',
-      focus: 'Engineering resilient backend servers, high-throughput pipelines, and automation protocols.',
-      vectorPos: {
-        x: (1 - t) * 160,
-        y: (1 - t) * -90,
-        rotate: (1 - t) * 20,
-      },
+      desktopAngle: -40, // Top-right
+      description: 'Builds fault-tolerant server backends, database architectures, and automated data pipelines.',
+      deliverables: ['High-Concurrency APIs', 'Database Schemas & ORMs', 'Automation Pipelines'],
     },
     {
       id: 2,
       name: 'NUTHAN SAI',
-      role: 'Frontend • Experience • Design',
-      badge: 'THE EXPERIENCE CRAFT',
+      code: 'N-03',
+      title: 'Design • Frontend Craft',
+      subtitle: 'The Experience Craft',
       icon: Palette,
       color: '#C4B5FD',
-      glow: 'rgba(196, 181, 253, 0.4)',
-      focus: 'Crafting pixel-level interfaces, responsive design systems, and seamless motion UX.',
-      vectorPos: {
-        x: 0,
-        y: (1 - t) * 140,
-        rotate: 0,
-      },
+      desktopAngle: 90, // Bottom-center
+      description: 'Crafts responsive interfaces, interaction physics, and design systems for web and mobile.',
+      deliverables: ['Responsive Web Apps', 'Design Systems & Tokens', 'Fluid Motion & UX'],
     },
   ];
 
   return (
     <section
       id="three-to-one"
-      className="relative py-28 px-4 sm:px-6 lg:px-8 bg-[#0A0A0A] border-y border-white/5 overflow-hidden"
+      className="relative py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-[#0A0A0A] border-y border-white/5 overflow-hidden"
     >
-      {/* Background Radial Ambiance */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[650px] bg-[#8B5CF6]/5 rounded-full blur-[160px] pointer-events-none" />
+      {/* Subtle ambient light */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#8B5CF6]/[0.03] rounded-full blur-[140px] pointer-events-none" />
 
-      <div className="max-w-6xl mx-auto">
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="text-[#8B5CF6] text-[11px] sm:text-[12px] font-bold tracking-[0.3em] uppercase mb-4 flex items-center justify-center gap-2">
+      <div className="max-w-6xl mx-auto relative z-10">
+        {/* Header */}
+        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+          <div className="text-[#8B5CF6] text-[11px] sm:text-[12px] font-bold tracking-[0.3em] uppercase mb-4 flex items-center justify-center gap-2 font-mono-code">
             <Sparkles className="w-3.5 h-3.5" />
             <span>THE AMIGOWORKS IDENTITY</span>
           </div>
@@ -79,207 +69,313 @@ export const ThreeToOne: React.FC = () => {
           <h2 className="font-display font-black text-4xl sm:text-5xl md:text-6xl tracking-tight uppercase text-white leading-tight">
             THREE MINDS.
             <br />
-            <span className="text-[#8B5CF6]">ONE BUILD.</span>
+            <span className="text-white/30">ONE BUILD.</span>
           </h2>
 
-          <p className="mt-4 text-base sm:text-lg text-white/60 font-light">
-            Three friends. Three skill sets. Three perspectives. Coming together to create one technology studio.
-            <br />
-            <span className="text-white font-medium">Different strengths. One direction.</span>
+          <p className="mt-4 text-sm sm:text-base text-white/60 font-light max-w-xl mx-auto">
+            Three distinct engineering forces converging into a single unified build studio. No bloated agency layers.
           </p>
         </div>
 
-        {/* Interactive Convergence Stage */}
-        <div className="relative bg-[#0E0E0E] border border-white/10 rounded-2xl p-6 sm:p-10 lg:p-12 backdrop-blur-xl shadow-[0_20px_60px_rgba(0,0,0,0.8)] overflow-hidden">
-          {/* Interactive Controller HUD */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-8 mb-8 border-b border-white/5">
-            <div className="flex items-center gap-3">
-              <span className="text-[11px] font-semibold tracking-widest text-white/40 uppercase">
-                CONVERGENCE MATRIX:
-              </span>
-              <span className="px-2.5 py-1 rounded-sm bg-[#8B5CF6]/15 border border-[#8B5CF6]/30 text-xs font-mono-code text-[#C4B5FD] font-bold">
-                {convergenceRatio === 100 ? '100% UNIFIED (ONE BUILD)' : `${convergenceRatio}% SYNCHRONIZATION`}
-              </span>
-            </div>
+        {/* State Selector Tabs */}
+        <div className="flex items-center justify-center gap-2 mb-8 sm:mb-10">
+          <button
+            onClick={() => setConvergenceState('three')}
+            className={`px-4 py-2 text-xs font-mono-code font-bold uppercase tracking-wider rounded-sm transition-all border ${
+              convergenceState === 'three'
+                ? 'bg-white text-black border-white shadow-sm'
+                : 'bg-[#121212] text-white/60 border-white/10 hover:text-white'
+            }`}
+          >
+            01. THREE FORCES
+          </button>
+          <button
+            onClick={() => setConvergenceState('converging')}
+            className={`px-4 py-2 text-xs font-mono-code font-bold uppercase tracking-wider rounded-sm transition-all border ${
+              convergenceState === 'converging'
+                ? 'bg-white text-black border-white shadow-sm'
+                : 'bg-[#121212] text-white/60 border-white/10 hover:text-white'
+            }`}
+          >
+            02. CONVERGENCE
+          </button>
+          <button
+            onClick={() => setConvergenceState('one')}
+            className={`px-4 py-2 text-xs font-mono-code font-bold uppercase tracking-wider rounded-sm transition-all border ${
+              convergenceState === 'one'
+                ? 'bg-[#8B5CF6] text-white border-[#8B5CF6] shadow-sm'
+                : 'bg-[#121212] text-white/60 border-white/10 hover:text-white'
+            }`}
+          >
+            03. ONE BUILD
+          </button>
+        </div>
 
-            {/* Interactive Slider */}
-            <div className="w-full sm:w-72 flex items-center gap-3">
-              <span className="text-[11px] font-mono-code text-white/40">THREE</span>
-              <input
-                type="range"
-                min="0"
-                max="100"
-                value={convergenceRatio}
-                onChange={(e) => setConvergenceRatio(Number(e.target.value))}
-                className="w-full h-1.5 bg-[#222222] rounded-lg appearance-none cursor-pointer accent-[#8B5CF6]"
-                aria-label="Adjust Three to One Convergence Ratio"
+        {/* Dynamic Vector Convergence Arena */}
+        <div className="relative bg-[#0E0E0E] border border-white/10 rounded-2xl p-6 sm:p-10 lg:p-12 overflow-hidden">
+          {/* Subtle Vector Background Grid */}
+          <div className="absolute inset-0 bg-grid-pattern opacity-10 pointer-events-none" />
+
+          {/* Desktop Geometric Arena (hidden on small mobile, rendered on sm+) */}
+          <div className="hidden sm:flex relative min-h-[420px] items-center justify-center">
+            {/* SVG Connecting Vector Rays with Animated Energetic Flow */}
+            <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 800 420">
+              <defs>
+                <linearGradient id="vectorRayGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#8B5CF6" stopOpacity="0.5" />
+                  <stop offset="100%" stopColor="#8B5CF6" stopOpacity="0.1" />
+                </linearGradient>
+                <filter id="glowPulse" x="-20%" y="-20%" width="140%" height="140%">
+                  <feGaussianBlur stdDeviation="3" result="blur" />
+                  <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                </filter>
+              </defs>
+
+              {/* Central crosshairs & orbit rings */}
+              <circle cx="400" cy="210" r="50" fill="none" stroke="rgba(255,255,255,0.06)" strokeDasharray="3 3" />
+              <circle
+                cx="400"
+                cy="210"
+                r="130"
+                fill="none"
+                stroke="rgba(139,92,246,0.12)"
+                strokeDasharray="4 6"
+                className="animate-[spin_40s_linear_infinite] origin-[400px_210px]"
               />
-              <span className="text-[11px] font-mono-code text-[#C4B5FD] font-bold">ONE</span>
-            </div>
-          </div>
 
-          {/* Canvas Simulation Area */}
-          <div className="relative min-h-[380px] sm:min-h-[440px] flex items-center justify-center">
-            {/* Coordinate grid lines in center */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20">
-              <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#8B5CF6] to-transparent" />
-              <div className="h-full w-[1px] bg-gradient-to-b from-transparent via-[#8B5CF6] to-transparent absolute" />
-            </div>
+              {/* Rays from nodes to center */}
+              <line
+                x1={200 + t * 160}
+                y1={90 + t * 90}
+                x2="400"
+                y2="210"
+                stroke="url(#vectorRayGrad)"
+                strokeWidth="1.5"
+                strokeDasharray="4 4"
+              />
+              <line
+                x1={600 - t * 160}
+                y1={90 + t * 90}
+                x2="400"
+                y2="210"
+                stroke="url(#vectorRayGrad)"
+                strokeWidth="1.5"
+                strokeDasharray="4 4"
+              />
+              <line
+                x1="400"
+                y1={330 - t * 90}
+                x2="400"
+                y2="210"
+                stroke="url(#vectorRayGrad)"
+                strokeWidth="1.5"
+                strokeDasharray="4 4"
+              />
 
-            {/* Unified Logo Apex (Emerges when t is high) */}
+              {/* Flowing energy particles traveling toward the center */}
+              <circle r="3" fill="#A78BFA" filter="url(#glowPulse)">
+                <animateMotion
+                  path={`M ${200 + t * 160} ${90 + t * 90} L 400 210`}
+                  dur="2.4s"
+                  repeatCount="indefinite"
+                />
+              </circle>
+              <circle r="3" fill="#8B5CF6" filter="url(#glowPulse)">
+                <animateMotion
+                  path={`M ${600 - t * 160} ${90 + t * 90} L 400 210`}
+                  dur="2.8s"
+                  repeatCount="indefinite"
+                />
+              </circle>
+              <circle r="3" fill="#C4B5FD" filter="url(#glowPulse)">
+                <animateMotion
+                  path={`M 400 ${330 - t * 90} L 400 210`}
+                  dur="2.2s"
+                  repeatCount="indefinite"
+                />
+              </circle>
+            </svg>
+
+            {/* Central Nexus / Unified Symbol */}
             <motion.div
               animate={{
-                scale: isUnified ? 1.15 : 0.75 + t * 0.35,
-                opacity: isUnified ? 1 : 0.2 + t * 0.7,
-                filter: isUnified ? 'drop-shadow(0 0 35px rgba(139,92,246,0.6))' : 'none',
+                scale: isOne ? 1.2 : 0.85 + t * 0.25,
+                opacity: 0.3 + t * 0.7,
               }}
-              transition={{ duration: 0.3 }}
-              className="absolute z-20 flex flex-col items-center justify-center text-center select-none"
+              transition={{ duration: 0.4 }}
+              className="relative z-20 flex flex-col items-center justify-center text-center select-none"
             >
-              <LogoSymbol size="w-24 h-24 sm:w-32 sm:h-32" />
-              <AnimatePresence>
-                {isUnified && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0 }}
-                    className="mt-3"
-                  >
-                    <div className="font-display font-extrabold text-xl sm:text-2xl text-white tracking-widest uppercase">
-                      AMIGOWORKS
-                    </div>
-                    <div className="text-[10px] uppercase tracking-[0.4em] text-[#8B5CF6] font-semibold">
-                      THREE MINDS. ONE BUILD.
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+              <div className="p-3 rounded-xl bg-[#111111] border border-white/10 shadow-lg">
+                <LogoSymbol size="w-16 h-16 sm:w-20 sm:h-20" />
+              </div>
+              <div className="mt-3">
+                <div className="font-display font-black text-lg text-white tracking-widest uppercase">
+                  AMIGOWORKS
+                </div>
+                <div className="text-[10px] uppercase tracking-[0.3em] text-[#8B5CF6] font-mono-code font-bold">
+                  THREE MINDS. ONE BUILD.
+                </div>
+              </div>
             </motion.div>
 
-            {/* The Three Converging Minds Elements */}
-            {minds.map((mind) => {
-              const Icon = mind.icon;
+            {/* 3 Interactive Force Nodes positioned around the Nexus */}
+            {founders.map((f) => {
+              const Icon = f.icon;
+              const isSelected = activeNode === f.id;
+
+              // Compute coordinates based on t
+              let posX = 0;
+              let posY = 0;
+              if (f.id === 0) {
+                posX = (1 - t) * -220;
+                posY = (1 - t) * -110;
+              } else if (f.id === 1) {
+                posX = (1 - t) * 220;
+                posY = (1 - t) * -110;
+              } else {
+                posX = 0;
+                posY = (1 - t) * 130;
+              }
+
               return (
                 <motion.div
-                  key={mind.id}
+                  key={f.id}
                   animate={{
-                    x: mind.vectorPos.x,
-                    y: mind.vectorPos.y,
-                    rotate: mind.vectorPos.rotate,
-                    scale: 1 - t * 0.2,
-                    opacity: isUnified ? 0.45 : 1,
+                    x: posX,
+                    y: posY,
+                    opacity: isOne ? 0.35 : 1,
                   }}
-                  transition={{ type: 'spring', stiffness: 120, damping: 20 }}
-                  onClick={() => setActiveMind(mind.id)}
-                  onMouseEnter={() => setActiveMind(mind.id)}
-                  className={`absolute cursor-pointer z-30 transition-shadow ${
-                    activeMind === mind.id ? 'z-40' : ''
+                  transition={{ type: 'spring', stiffness: 140, damping: 22 }}
+                  onClick={() => setActiveNode(isSelected ? null : f.id)}
+                  className={`absolute z-30 cursor-pointer transition-all ${
+                    isSelected ? 'scale-105 z-40' : 'hover:scale-[1.02] active:scale-[0.98]'
                   }`}
                 >
                   <div
-                    className={`p-4 sm:p-5 rounded-xl bg-[#141414]/95 border backdrop-blur-md transition-all duration-300 w-52 sm:w-60 shadow-lg ${
-                      activeMind === mind.id
-                        ? 'border-[#8B5CF6] ring-1 ring-[#8B5CF6]/50 scale-105'
+                    className={`p-4 rounded-xl border transition-all duration-200 w-52 bg-[#121212]/95 backdrop-blur-md shadow-md ${
+                      isSelected
+                        ? 'border-[#8B5CF6] ring-1 ring-[#8B5CF6]/50 bg-[#161616]'
                         : 'border-white/10 hover:border-white/20'
                     }`}
-                    style={{
-                      boxShadow: activeMind === mind.id ? `0 0 25px ${mind.glow}` : undefined,
-                    }}
                   >
                     <div className="flex items-center justify-between mb-2">
-                      <div
-                        className="w-7 h-7 rounded-sm flex items-center justify-center font-mono-code text-xs font-bold"
-                        style={{ backgroundColor: `${mind.color}20`, color: mind.color }}
-                      >
-                        <Icon className="w-4 h-4" />
-                      </div>
-                      <span className="text-[9px] uppercase tracking-widest text-white/40">
-                        {mind.badge}
+                      <span className="text-[9px] font-mono-code font-bold uppercase tracking-wider text-[#8B5CF6]">
+                        {f.code}
                       </span>
+                      <div className="w-6 h-6 rounded-md bg-white/5 flex items-center justify-center text-white/70">
+                        <Icon className="w-3.5 h-3.5" />
+                      </div>
                     </div>
 
-                    <div className="font-display font-bold text-base sm:text-lg text-white tracking-tight">
-                      {mind.name}
+                    <div className="font-display font-black text-sm text-white uppercase tracking-tight">
+                      {f.name}
                     </div>
-                    <div
-                      className="text-xs font-semibold mt-0.5 tracking-tight"
-                      style={{ color: mind.color }}
-                    >
-                      {mind.role}
-                    </div>
-
-                    <p className="mt-2 text-[11px] text-white/60 leading-relaxed line-clamp-2">
-                      {mind.focus}
-                    </p>
+                    <div className="text-[11px] text-white/50 font-medium">{f.title}</div>
                   </div>
                 </motion.div>
               );
             })}
           </div>
 
-          {/* Bottom Interactive Trigger Actions */}
-          <div className="mt-8 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-2 text-xs text-white/50">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#8B5CF6]" />
-              <span>Drag the matrix slider or click any mind to inspect their domain strengths.</span>
+          {/* Mobile Dedicated Composition (clean vertical flow) */}
+          <div className="sm:hidden space-y-4">
+            {/* Center Monogram in Mobile */}
+            <div className="flex flex-col items-center justify-center p-4 rounded-xl bg-[#121212] border border-white/10 text-center">
+              <LogoSymbol size="w-12 h-12" />
+              <div className="font-display font-black text-sm text-white uppercase tracking-wider mt-2">
+                AMIGOWORKS NEXUS
+              </div>
+              <div className="text-[9px] text-[#8B5CF6] font-mono-code font-bold tracking-widest uppercase">
+                THREE MINDS. ONE BUILD.
+              </div>
             </div>
 
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => setConvergenceRatio(0)}
-                className={`px-3 py-1.5 rounded-sm text-xs font-mono-code transition-colors ${
-                  convergenceRatio === 0 ? 'bg-white text-black font-bold' : 'bg-white/5 text-white/60 hover:text-white'
-                }`}
-              >
-                3 MINDS
-              </button>
-              <button
-                onClick={() => setConvergenceRatio(50)}
-                className={`px-3 py-1.5 rounded-sm text-xs font-mono-code transition-colors ${
-                  convergenceRatio === 50 ? 'bg-white text-black font-bold' : 'bg-white/5 text-white/60 hover:text-white'
-                }`}
-              >
-                COLLABORATION
-              </button>
-              <button
-                onClick={() => setConvergenceRatio(100)}
-                className={`px-3 py-1.5 rounded-sm text-xs font-mono-code transition-colors ${
-                  convergenceRatio === 100 ? 'bg-[#8B5CF6] text-white font-bold' : 'bg-white/5 text-white/60 hover:text-white'
-                }`}
-              >
-                1 BUILD
-              </button>
+            {/* 3 Node Cards in Mobile */}
+            <div className="space-y-3 pt-2">
+              {founders.map((f) => {
+                const Icon = f.icon;
+                return (
+                  <div
+                    key={f.id}
+                    className="p-4 rounded-xl bg-[#121212] border border-white/10 flex items-start justify-between gap-3 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
+                  >
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-2">
+                        <span className="text-[9px] font-mono-code font-bold text-[#8B5CF6]">
+                          {f.code}
+                        </span>
+                        <span className="text-xs font-bold text-white uppercase font-display">
+                          {f.name}
+                        </span>
+                      </div>
+                      <div className="text-xs text-white/70">{f.title}</div>
+                      <p className="text-[11px] text-white/50 font-light leading-relaxed pt-1">
+                        {f.description}
+                      </p>
+                    </div>
+                    <div className="w-7 h-7 rounded-lg bg-white/5 flex items-center justify-center text-white/70 shrink-0 mt-0.5">
+                      <Icon className="w-3.5 h-3.5" />
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
+
+          {/* Active Node Detail Expansion */}
+          <AnimatePresence>
+            {activeNode !== null && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 5 }}
+                className="mt-6 pt-6 border-t border-white/5 hidden sm:grid grid-cols-3 gap-4 text-xs font-mono-code"
+              >
+                <div className="col-span-1 text-white/60">
+                  <span className="text-white font-bold block mb-1">
+                    FOCUS: {founders[activeNode].name}
+                  </span>
+                  {founders[activeNode].description}
+                </div>
+                <div className="col-span-2 flex flex-wrap gap-2 items-center">
+                  <span className="text-white/40 block w-full text-[10px] uppercase tracking-wider">
+                    KEY DELIVERABLES:
+                  </span>
+                  {founders[activeNode].deliverables.map((item, idx) => (
+                    <span
+                      key={idx}
+                      className="px-2.5 py-1 rounded-sm bg-white/5 border border-white/10 text-white/80 text-[11px]"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
 
         {/* Editorial Triad Breakdown Grid */}
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="p-6 rounded-sm bg-[#111111]/60 border border-white/5 hover:border-[#8B5CF6]/40 transition-colors">
-            <div className="text-[#8B5CF6] text-[10px] uppercase tracking-widest font-semibold">01 — VIGNESH</div>
-            <h3 className="text-lg font-bold text-white mt-1">AI • Product • Strategy</h3>
-            <p className="mt-3 text-sm text-white/60 leading-relaxed font-light">
-              Deconstructs client problems into high-leverage AI architectures and intuitive product trajectories.
-            </p>
-          </div>
-
-          <div className="p-6 rounded-sm bg-[#111111]/60 border border-white/5 hover:border-[#8B5CF6]/40 transition-colors">
-            <div className="text-[#8B5CF6] text-[10px] uppercase tracking-widest font-semibold">02 — SAI KIRAN</div>
-            <h3 className="text-lg font-bold text-white mt-1">Engineering • Backend • Systems</h3>
-            <p className="mt-3 text-sm text-white/60 leading-relaxed font-light">
-              Builds rock-solid server backends, high-concurrency pipelines, and automated business integrations.
-            </p>
-          </div>
-
-          <div className="p-6 rounded-sm bg-[#111111]/60 border border-white/5 hover:border-[#8B5CF6]/40 transition-colors">
-            <div className="text-[#8B5CF6] text-[10px] uppercase tracking-widest font-semibold">03 — NUTHAN SAI</div>
-            <h3 className="text-lg font-bold text-white mt-1">Frontend • Experience • Design</h3>
-            <p className="mt-3 text-sm text-white/60 leading-relaxed font-light">
-              Designs fluid digital interfaces, typographic hierarchies, and performant web platforms.
-            </p>
-          </div>
+        <div className="mt-10 sm:mt-12 grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+          {founders.map((f, i) => (
+            <div
+              key={f.id}
+              className="p-5 sm:p-6 rounded-xl bg-[#111111]/50 border border-white/5 hover:border-white/15 transition-colors"
+            >
+              <div className="text-[#8B5CF6] text-[10px] uppercase tracking-widest font-mono-code font-bold">
+                0{i + 1} — {f.name}
+              </div>
+              <h3 className="text-base sm:text-lg font-bold text-white mt-1.5 font-display">
+                {f.title}
+              </h3>
+              <p className="mt-2.5 text-xs sm:text-sm text-white/60 leading-relaxed font-light">
+                {f.description}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
   );
 };
+

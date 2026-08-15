@@ -3,7 +3,9 @@ import { Project, ServiceItem, Founder, ProcessStep, Principle } from './types';
 export const FOUNDERS: Founder[] = [
   {
     name: 'Vignesh',
-    role: 'AI / Product / Strategy',
+    role: 'Founder • AI / Product / Strategy',
+    titleBadge: 'FOUNDER',
+    image: '/src/assets/images/vignesh_real_founder_1786789440900.jpg',
     specialization: ['AI Systems & LLMs', 'Product Architecture', 'Strategic Roadmapping'],
     description: 'Bridges complex user needs and machine intelligence to conceptualize products that deliver immediate utility.',
     philosophy: 'Start with high-leverage problems, then build intelligence natively into the user workflow.',
@@ -11,7 +13,9 @@ export const FOUNDERS: Founder[] = [
   },
   {
     name: 'Sai Kiran',
-    role: 'Engineering / Systems / Backend',
+    role: 'Co-Founder • Systems & Backend',
+    titleBadge: 'CO-FOUNDER',
+    image: '/src/assets/images/saikiran_real_cofounder_1786789666669.jpg',
     specialization: ['Distributed Systems', 'Backend Infrastructure', 'API & Automation Pipelines'],
     description: 'Designs reliable server architectures, high-throughput APIs, and automation routines engineered for scale and speed.',
     philosophy: 'Code should be clean, architectures should be resilient, and systems must run without friction.',
@@ -19,7 +23,9 @@ export const FOUNDERS: Founder[] = [
   },
   {
     name: 'Nuthan Sai',
-    role: 'Frontend / Experience / Design',
+    role: 'Co-Founder • Frontend & Design',
+    titleBadge: 'CO-FOUNDER',
+    image: '/src/assets/images/nuthansai_real_cofounder_1786789566684.jpg',
     specialization: ['Interface Design', 'Frontend Engineering', 'Interactive Motion & Systems'],
     description: 'Crafts crisp, responsive, high-performance interfaces with obsessive attention to typographic detail and interaction feel.',
     philosophy: 'A product is only as good as the feeling it gives to the human holding the device.',

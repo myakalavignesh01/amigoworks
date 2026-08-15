@@ -24,6 +24,8 @@ export interface ServiceItem {
 export interface Founder {
   name: string;
   role: string;
+  titleBadge?: string;
+  image?: string;
   specialization: string[];
   description: string;
   philosophy: string;

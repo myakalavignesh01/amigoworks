@@ -47,9 +47,9 @@ export const FAQ: React.FC<FAQProps> = ({ onOpenContact }) => {
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-4 py-2 rounded-sm text-xs font-mono-code font-bold uppercase tracking-wider transition-all border ${
+              className={`px-4 py-2 rounded-sm text-xs font-mono-code font-bold uppercase tracking-wider transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] cursor-pointer border ${
                 selectedCategory === cat
-                  ? 'bg-white text-black border-white'
+                  ? 'bg-white text-black border-white shadow-sm'
                   : 'bg-[#141414] text-white/60 border-white/5 hover:text-white hover:border-white/20'
               }`}
             >
@@ -66,12 +66,12 @@ export const FAQ: React.FC<FAQProps> = ({ onOpenContact }) => {
               <div
                 key={faq.id}
                 id={`faq-item-${faq.id}`}
-                className="bg-[#0E0E0E] border border-white/10 rounded-xl overflow-hidden transition-all duration-200"
+                className="bg-[#0E0E0E] border border-white/10 hover:border-white/25 rounded-xl overflow-hidden transition-all duration-200 hover:scale-[1.01]"
               >
                 <button
                   type="button"
                   onClick={() => toggleFaq(faq.id)}
-                  className="w-full p-6 text-left flex items-center justify-between gap-4 transition-colors hover:bg-white/[0.02]"
+                  className="w-full p-6 text-left flex items-center justify-between gap-4 transition-colors hover:bg-white/[0.02] cursor-pointer"
                 >
                   <div className="flex items-center gap-4">
                     <span className="text-[10px] font-mono-code text-[#8B5CF6] uppercase px-2 py-0.5 rounded-sm bg-white/5 border border-white/5">
@@ -121,7 +121,7 @@ export const FAQ: React.FC<FAQProps> = ({ onOpenContact }) => {
           </div>
           <button
             onClick={onOpenContact}
-            className="px-6 py-3 rounded-sm bg-white text-black text-xs font-bold uppercase tracking-widest hover:bg-[#E5E5E5] transition-all flex items-center gap-2 shrink-0"
+            className="px-6 py-3 rounded-sm bg-white text-black text-xs font-bold uppercase tracking-widest hover:bg-[#E5E5E5] transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] flex items-center gap-2 shrink-0 cursor-pointer"
           >
             <MessageSquare className="w-3.5 h-3.5" />
             <span>ASK US DIRECTLY</span>

@@ -164,3 +164,16 @@
   background-color: #27272A !important;
 }
 
+/* Gentle Tactile Hover Feedback */
+.btn-tactile {
+  transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 200ms ease, background-color 200ms ease;
+}
+
+.btn-tactile:hover {
+  transform: scale(1.02);
+}
+
+.btn-tactile:active {
+  transform: scale(0.98);
+}
+

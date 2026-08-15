@@ -121,7 +121,7 @@ export const Work: React.FC<WorkProps> = ({ onSelectProject }) => {
     switch (projectId) {
       case 'ai-guardian-os':
         return (
-          <div className="w-full h-full bg-[#0E111C] border border-white/[0.08] rounded-2xl p-5 flex flex-col justify-between relative overflow-hidden group-hover:border-[#7C3AED]/50 transition-colors">
+          <div className="w-full h-full bg-[#0E111C] border border-white/[0.08] rounded-2xl p-5 flex flex-col justify-between relative overflow-hidden group-hover:border-[#7C3AED]/50 transition-all duration-300 transform group-hover:scale-[1.02]">
             <div className="absolute top-0 right-0 w-32 h-32 bg-[#7C3AED]/10 rounded-full blur-2xl pointer-events-none" />
             <div className="flex items-center justify-between pb-3 border-b border-white/[0.06]">
               <div className="flex items-center gap-2">
@@ -163,7 +163,7 @@ export const Work: React.FC<WorkProps> = ({ onSelectProject }) => {
 
       case 'calci-py':
         return (
-          <div className="w-full h-full bg-[#0E111C] border border-white/[0.08] rounded-2xl p-5 flex flex-col justify-between relative overflow-hidden group-hover:border-[#7C3AED]/50 transition-colors">
+          <div className="w-full h-full bg-[#0E111C] border border-white/[0.08] rounded-2xl p-5 flex flex-col justify-between relative overflow-hidden group-hover:border-[#7C3AED]/50 transition-all duration-300 transform group-hover:scale-[1.02]">
             <div className="absolute top-0 right-0 w-32 h-32 bg-[#8B5CF6]/10 rounded-full blur-2xl pointer-events-none" />
             <div className="flex items-center justify-between pb-3 border-b border-white/[0.06]">
               <div className="flex items-center gap-2">
@@ -211,7 +211,7 @@ export const Work: React.FC<WorkProps> = ({ onSelectProject }) => {
 
       case 'guide360':
         return (
-          <div className="w-full h-full bg-[#0E111C] border border-white/[0.08] rounded-2xl p-5 flex flex-col justify-between relative overflow-hidden group-hover:border-[#7C3AED]/50 transition-colors">
+          <div className="w-full h-full bg-[#0E111C] border border-white/[0.08] rounded-2xl p-5 flex flex-col justify-between relative overflow-hidden group-hover:border-[#7C3AED]/50 transition-all duration-300 transform group-hover:scale-[1.02]">
             <div className="absolute top-0 right-0 w-32 h-32 bg-[#C4B5FD]/10 rounded-full blur-2xl pointer-events-none" />
             <div className="flex items-center justify-between pb-3 border-b border-white/[0.06]">
               <div className="flex items-center gap-2">
@@ -282,7 +282,7 @@ export const Work: React.FC<WorkProps> = ({ onSelectProject }) => {
               onClick={handleSimulateReload}
               title="Refresh telemetry"
               aria-label="Refresh telemetry data"
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#141414] border border-white/10 hover:border-[#8B5CF6]/40 text-white/60 hover:text-white text-[10px] font-mono-code uppercase tracking-wider transition-all"
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#141414] border border-white/10 hover:border-[#8B5CF6]/40 text-white/60 hover:text-white text-[10px] font-mono-code uppercase tracking-wider transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
             >
               <RefreshCw className={`w-3 h-3 text-[#8B5CF6] ${loading ? 'animate-spin' : ''}`} />
               <span>{loading ? 'SYNCING...' : 'LIVE SYNC'}</span>
@@ -315,10 +315,12 @@ export const Work: React.FC<WorkProps> = ({ onSelectProject }) => {
               className="space-y-12"
             >
               {PROJECTS.map((project, index) => (
-                <div
+                <motion.div
                   key={project.id}
                   id={`project-card-${project.id}`}
-                  className="group relative bg-[#0E0E0E] border border-white/10 hover:border-white/25 rounded-2xl p-6 sm:p-8 lg:p-10 transition-all duration-300 shadow-[0_15px_40px_rgba(0,0,0,0.8)]"
+                  whileHover={{ y: -3, scale: 1.015 }}
+                  transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                  className="group relative bg-[#0E0E0E] border border-white/10 hover:border-[#8B5CF6]/40 rounded-2xl p-6 sm:p-8 lg:p-10 transition-colors duration-300 shadow-[0_15px_40px_rgba(0,0,0,0.8)]"
                 >
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                     {/* Text / Info Column */}
@@ -356,7 +358,7 @@ export const Work: React.FC<WorkProps> = ({ onSelectProject }) => {
                         {project.technologies.map((tech) => (
                           <span
                             key={tech}
-                            className="px-3 py-1 rounded-sm bg-[#141414] border border-white/5 text-xs font-mono-code text-[#E5E7EB]"
+                            className="px-3 py-1 rounded-sm bg-[#141414] border border-white/5 text-xs font-mono-code text-[#E5E7EB] hover:border-white/20 transition-colors"
                           >
                             {tech}
                           </span>
@@ -365,14 +367,16 @@ export const Work: React.FC<WorkProps> = ({ onSelectProject }) => {
 
                       {/* CTA Button */}
                       <div className="pt-2">
-                        <button
+                        <motion.button
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
                           id={`view-case-study-${project.id}-btn`}
                           onClick={() => onSelectProject(project)}
-                          className="inline-flex items-center gap-2 px-6 py-3 rounded-sm text-xs font-bold uppercase tracking-widest text-white border border-white/20 hover:bg-white hover:text-black transition-all duration-200"
+                          className="inline-flex items-center gap-2 px-6 py-3 rounded-sm text-xs font-bold uppercase tracking-widest text-white border border-white/20 hover:bg-white hover:text-black transition-all duration-200 cursor-pointer"
                         >
                           <span>VIEW CASE STUDY</span>
                           <ArrowUpRight className="w-4 h-4" />
-                        </button>
+                        </motion.button>
                       </div>
                     </div>
 
@@ -381,7 +385,7 @@ export const Work: React.FC<WorkProps> = ({ onSelectProject }) => {
                       {getProjectVisual(project.id)}
                     </div>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </motion.div>
           )}
