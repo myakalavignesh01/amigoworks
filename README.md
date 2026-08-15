@@ -1,26 +1,26 @@
 # Amigoworks
 
-A well-structured TypeScript project. Replace this short description with a concise explanation of what Amigoworks does.
+A React + TypeScript starter for building fast, interactive web experiences with 3D visuals and optional AI integrations. Amigoworks is organized with Vite for development, Three.js for 3D rendering, Tailwind CSS for styling, and a small Express helper for any server-side needs.
 
 ---
 
 ## Table of Contents
 
 - [About](#about)
+- [Live Demo](#live-demo)
 - [Features](#features)
-- [Demo](#demo)
 - [Tech Stack](#tech-stack)
-- [Requirements](#requirements)
+- [Prerequisites](#prerequisites)
 - [Getting Started](#getting-started)
   - [Install](#install)
   - [Development](#development)
   - [Build](#build)
-  - [Testing](#testing)
-  - [Linting & Formatting](#linting--formatting)
-- [Configuration](#configuration)
+  - [Preview](#preview)
+  - [Lint](#lint)
+- [Environment Variables](#environment-variables)
+- [Project Structure](#project-structure)
 - [Deployment](#deployment)
 - [Contributing](#contributing)
-- [Code of Conduct](#code-of-conduct)
 - [License](#license)
 - [Contact](#contact)
 
@@ -28,35 +28,42 @@ A well-structured TypeScript project. Replace this short description with a conc
 
 ## About
 
-Amigoworks is a TypeScript-based project. Update this section with a short paragraph describing the purpose of the repository, the problem it solves, and its target audience.
+Amigoworks is a modern front-end project scaffolded with TypeScript and Vite. It’s intended as a foundation for applications that need performant client-side rendering, interactive 3D scenes (via Three.js), and room to integrate AI services (the repository already includes configuration for using a Gemini API key).
+
+If this repository powers a specific product or demo, replace this section with a concise summary of the app’s purpose and core value.
+
+## Live Demo
+
+Add a URL here when you have a hosted demo (Vercel, Netlify, or similar).
 
 ## Features
 
-- Clear, concise feature 1
-- Feature 2 with brief explanation
-- Feature 3
+- React + TypeScript single-page application
+- Vite-powered fast development server and build
+- Three.js for 3D scenes / visuals
+- Tailwind CSS for utility-first styling
+- Optional Express server for simple API routes or server-side helpers
+- Environment-configured AI integration points (Gemini)
 
-Add or remove features as needed.
-
-## Demo
-
-If you have a live demo, add the URL here. If not, consider adding GIFs or screenshots showing the app in use.
+Customize this list to reflect the actual features of your project.
 
 ## Tech Stack
 
 - TypeScript
-- Node.js
-- (Add frameworks/libraries used in this repo, e.g., React, Next.js, Express)
-- CSS / HTML
+- React
+- Vite
+- Three.js
+- Tailwind CSS
+- Express (optional server)
 
-## Requirements
+## Prerequisites
 
-- Node.js >= 18 (or the version your project requires)
-- npm >= 8 or yarn/pnpm (adjust to your preference)
+- Node.js 18 or later
+- npm (or pnpm / yarn)
 
 ## Getting Started
 
-Follow these instructions to get a copy of the project running locally.
+Follow these steps to run the project locally.
 
 ### Install
 
@@ -67,98 +74,97 @@ cd amigoworks
 
 # Install dependencies (npm)
 npm install
-
-# or with pnpm
-# pnpm install
-
-# or with yarn
-# yarn install
 ```
+
+If you prefer pnpm or yarn, use `pnpm install` or `yarn install`.
 
 ### Development
 
-Run the development server with hot-reloading (adjust script name to your project):
+Start the Vite dev server (it will listen on port 3000 according to package.json scripts):
 
 ```bash
 npm run dev
 ```
 
-If this repo uses a framework such as React or Next.js, replace with the correct command (e.g., `next dev`, `vite`).
+Open http://localhost:3000 in your browser.
 
 ### Build
 
-To create a production build:
+Create a production build:
 
 ```bash
 npm run build
 ```
 
-### Start
+### Preview
 
-To start the production build (if applicable):
-
-```bash
-npm start
-```
-
-### Testing
-
-Run tests with:
+Preview the production build locally:
 
 ```bash
-npm test
+npm run preview
 ```
 
-If you use Jest, Vitest, or other test runners, ensure the script is wired in package.json.
+The project also includes a `clean` script to remove `dist` and any generated server bundle:
 
-### Linting & Formatting
+```bash
+npm run clean
+```
+
+### Lint
+
+Type-check the project (the `lint` script runs TypeScript's `tsc --noEmit`):
 
 ```bash
 npm run lint
-npm run format
 ```
 
-Configure ESLint/Prettier to match your project's style guide.
+## Environment Variables
 
-## Configuration
+The repository includes a `.env.example`. Key environment variables used by the project:
 
-Explain environment variables and configuration files needed by the project. Example:
+- GEMINI_API_KEY — API key for Gemini/GenAI integrations (if you use the AI features)
+- APP_URL — Public URL where the app is hosted (used for callbacks or self-referential links)
 
-- `.env` (create from `.env.example`)
-  - `DATABASE_URL` - description
-  - `API_KEY` - description
+Create a `.env` file from `.env.example` and fill in the values before running features that require them.
+
+## Project Structure (high level)
+
+- public/ — static assets
+- src/ — application source (React, components, pages, styles)
+- assets/ — images, screenshots, and other media
+- package.json — scripts and dependencies
+- vite.config.ts — Vite configuration
+- tsconfig.json — TypeScript configuration
+
+Tailor this list to match the actual layout of your repository.
 
 ## Deployment
 
-Short guide to deploy the project (Vercel, Netlify, Docker, or other). Example for Vercel:
+Typical deployment options:
 
-1. Push to GitHub
-2. Import project into Vercel
-3. Set environment variables in the Vercel dashboard
-4. Configure build command (`npm run build`) and output directory (if applicable)
+- Vercel: Connect the repository, set environment variables, and use `npm run build` as the build command.
+- Netlify: Configure build command `npm run build` and deploy the output directory.
+- Docker: Add a Dockerfile if you want containerized deployment.
+
+Add deployment steps specific to your target provider.
 
 ## Contributing
 
-Contributions are welcome! Please follow these steps:
+Contributions are welcome. Suggested workflow:
 
 1. Fork the repository
-2. Create a feature branch: `git checkout -b feat/my-feature`
-3. Commit your changes: `git commit -m "feat: add my feature"`
-4. Push to the branch: `git push origin feat/my-feature`
-5. Open a Pull Request describing your changes
+2. Create a branch: `git checkout -b feat/my-feature`
+3. Commit changes: `git commit -m "feat: describe your change"`
+4. Push the branch and open a Pull Request
 
-Please include tests and update documentation where appropriate.
-
-## Code of Conduct
-
-This project follows the Contributor Covenant Code of Conduct. Please be respectful and follow community guidelines.
+Please include tests or a description of how to test your changes.
 
 ## License
 
-Add a license to the project (e.g., MIT). Update this section with the correct license.
+This repository does not yet include a license file. If you want the MIT license, I can add it for you — tell me and I will create a `LICENSE` file.
 
 ## Contact
 
-Project maintainer: myakalavignesh01
+Maintainer: myakalavignesh01
 
-For questions or support, open an issue in the repository.
+For questions or issues, please open a GitHub Issue in this repository.
