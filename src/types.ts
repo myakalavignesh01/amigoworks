@@ -48,6 +48,7 @@ export interface Principle {
 export interface InquiryFormData {
   name: string;
   email: string;
+  phone: string;
   company: string;
   projectType: string;
   budget: string;
