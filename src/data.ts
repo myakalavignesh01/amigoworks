@@ -5,7 +5,7 @@ export const FOUNDERS: Founder[] = [
     name: 'Vignesh',
     role: 'Founder • AI / Product / Strategy',
     titleBadge: 'FOUNDER',
-    image: '/images/vignesh_real_founder_1786789440900.jpg',
+    image: '',
     specialization: ['AI Systems & LLMs', 'Product Architecture', 'Strategic Roadmapping'],
     description: 'Bridges complex user needs and machine intelligence to conceptualize products that deliver immediate utility.',
     philosophy: 'Start with high-leverage problems, then build intelligence natively into the user workflow.',
@@ -15,7 +15,7 @@ export const FOUNDERS: Founder[] = [
     name: 'Sai Kiran',
     role: 'Co-Founder • Systems & Backend',
     titleBadge: 'CO-FOUNDER',
-    image: '/images/saikiran_real_cofounder_1786789666669.jpg',
+    image: '',
     specialization: ['Distributed Systems', 'Backend Infrastructure', 'API & Automation Pipelines'],
     description: 'Designs reliable server architectures, high-throughput APIs, and automation routines engineered for scale and speed.',
     philosophy: 'Code should be clean, architectures should be resilient, and systems must run without friction.',
@@ -25,7 +25,7 @@ export const FOUNDERS: Founder[] = [
     name: 'Nuthan Sai',
     role: 'Co-Founder • Frontend & Design',
     titleBadge: 'CO-FOUNDER',
-    image: '/images/nuthansai_real_cofounder_1786789566684.jpg',
+    image: '',
     specialization: ['Interface Design', 'Frontend Engineering', 'Interactive Motion & Systems'],
     description: 'Crafts crisp, responsive, high-performance interfaces with obsessive attention to typographic detail and interaction feel.',
     philosophy: 'A product is only as good as the feeling it gives to the human holding the device.',
@@ -297,43 +297,42 @@ export const FAQS: FAQItem[] = [
     id: 'faq-1',
     category: 'Collaboration',
     question: 'How does working directly with three founders differ from an agency?',
-    answer: 'Traditional agencies introduce layers of account managers, non-technical project coordinators, and subcontracted junior developers. At AMIGOWORKS, you talk directly with the three people designing and writing every line of your codebase: Vignesh (AI & Strategy), Sai Kiran (Backend & Systems), and Nuthan Sai (Frontend & Design). Decisions happen in minutes, not weeks.'
+    answer: 'Traditional agencies introduce layers of account managers, non-technical project coordinators, and subcontracted junior developers. At AMIGOWORKS, you talk directly with the three pe[...]'
   },
   {
     id: 'faq-2',
     category: 'Delivery',
     question: 'What is your typical turnaround timeline for an MVP or web product?',
-    answer: 'A focused MVP or production web product typically ships in 2 to 4 weeks depending on architectural scope. Because all three disciplines (AI/Strategy, Systems, and Frontend) build concurrently in close daily sync, velocity is unmatched.'
+    answer: 'A focused MVP or production web product typically ships in 2 to 4 weeks depending on architectural scope. Because all three disciplines (AI/Strategy, Systems, and Frontend) build con[...]'
   },
   {
     id: 'faq-3',
     category: 'Engagement',
     question: 'Who owns the intellectual property and code when the project is done?',
-    answer: 'You own 100% of the source code, design assets, database schemas, and documentation upon project handover. We set up clean Git repositories, environment configurations, and deployment pipelines ready for your team.'
+    answer: 'You own 100% of the source code, design assets, database schemas, and documentation upon project handover. We set up clean Git repositories, environment configurations, and deploymen[...]'
   },
   {
     id: 'faq-4',
     category: 'Technical',
     question: 'Can AMIGOWORKS integrate with our existing backend, database, or third-party APIs?',
-    answer: 'Yes. We frequently integrate with existing REST/GraphQL APIs, third-party authentication providers, vector databases, CRM endpoints, payment systems (Stripe), and legacy databases without requiring you to rebuild from scratch.'
+    answer: 'Yes. We frequently integrate with existing REST/GraphQL APIs, third-party authentication providers, vector databases, CRM endpoints, payment systems (Stripe), and legacy databases wi[...]'
   },
   {
     id: 'faq-5',
     category: 'Delivery',
     question: 'What happens after launch? Do you provide maintenance and ongoing iterations?',
-    answer: 'We provide post-launch stability monitoring, warranty bug-fixes, and smooth handover documentation. Many clients also retain us on dedicated sprint blocks for iterative feature expansion as their user base scales.'
+    answer: 'We provide post-launch stability monitoring, warranty bug-fixes, and smooth handover documentation. Many clients also retain us on dedicated sprint blocks for iterative feature expan[...]'
   },
   {
     id: 'faq-6',
     category: 'Technical',
     question: 'How do you ensure security, data privacy, and AI safety in deployments?',
-    answer: 'We adhere to enterprise security practices: strict environment secret management, parameterized database queries, token validation, rate-limiting, and proprietary AI guardrails (like those built in our AI Guardian OS platform) to prevent unauthorized prompts and data leaks.'
+    answer: 'We adhere to enterprise security practices: strict environment secret management, parameterized database queries, token validation, rate-limiting, and proprietary AI guardrails (like[...]'
   },
   {
     id: 'faq-7',
     category: 'Collaboration',
     question: 'How do clients contact and communicate with AMIGOWORKS?',
-    answer: 'We operate strictly and exclusively via email (myakalavignesh01@gmail.com). All project requirements, feature specifications, architecture reviews, budget scopes, timeline milestones, and delivery links are comprehensively communicated over structured email threads directly with the three founding engineers. No meeting fatigue or calendar chaos — everything is documented with precision in writing.'
+    answer: 'We operate strictly and exclusively via email (myakalavignesh01@gmail.com). All project requirements, feature specifications, architecture reviews, budget scopes, timeline milestones[...]'
   }
 ];
-
